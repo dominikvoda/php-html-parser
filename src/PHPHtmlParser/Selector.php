@@ -168,9 +168,8 @@ class Selector
     protected function seek(array $nodes, array $rule, array $options)
     {
         // XPath index
-        if (count($rule['tag']) > 0 &&
-            count($rule['key']) > 0 &&
-            is_numeric($rule['key'])
+        if (strlen($rule['tag']) > 0 &&
+            (int) $rule['key'] > 0
         ) {
             $count = 0;
             /** @var AbstractNode $node */
@@ -219,7 +218,7 @@ class Selector
                 $pass = true;
                 // check tag
                 if ( ! empty($rule['tag']) && $rule['tag'] != $child->getTag()->name() &&
-                    $rule['tag'] != '*'
+                     $rule['tag'] != '*'
                 ) {
                     // child failed tag check
                     $pass = false;
@@ -295,7 +294,7 @@ class Selector
             }
 
             if (( ! isset($options['checkGrandChildren']) ||
-                    $options['checkGrandChildren'])
+                  $options['checkGrandChildren'])
                 && count($children) > 0
             ) {
                 // we have children that failed but are not leaves.
